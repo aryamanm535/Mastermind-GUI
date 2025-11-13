@@ -365,6 +365,16 @@ public class GameStateTest{
         GameState gs3 = new GameState("BBYY");
         int[] result3 = gs3.evaluateGuess("BGBG");
         assertResult("testEdgeCases (Overcounting white)", result3, 1, 1);
+
+        // Case 4: Overcounting white pegs when guess repeats a limited color
+        // Secret: BYGR
+        // Guess:  BBBP
+        // Expected: 1 Black (B at pos 0).
+        //           White check: Guess has three 'B's, but only one unmarked 'B' in code.
+        //           Result must be 1 Black, 0 White.
+        GameState gs4 = new GameState("BYGR");
+        int[] result4 = gs4.evaluateGuess("BBBP");
+        assertResult("testEdgeCases (Guess repeats limited color)", result4, 1, 0);
     }
 
     /**
